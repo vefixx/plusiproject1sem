@@ -25,6 +25,10 @@ bool HandleChoice(short choice, std::vector<User>& users)
 		HandleSaveToFile(users);
 		break;
 	}
+	case 5: {
+		HandleAddUser(users);
+		break;
+	}
 	default:
 		return false;
 	}

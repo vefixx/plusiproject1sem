@@ -24,7 +24,7 @@ void PrintTable(const std::vector<User>& users)
 	using namespace std;
 
 	const int col_width_id = 5;
-	const int col_width_name = 20;
+	const int col_width_name = 30;
 	const int col_width_age = 10;
 	const int col_width_salary = 12;
 
@@ -70,7 +70,6 @@ bool LoadFromFile(const std::string& file_name, std::vector<User>& users)
 	ifstream file(file_name);
 
 	if (!file.is_open()) {
-		file.close();
 		return false;
 	}
 
@@ -113,6 +112,9 @@ bool ParseFileLine(const std::string& line, User& out_user)
 	Trim(name);
 	start = comma_pos + 1; // Устанавливаем новый старт обрезки
 
+	if (name.length() == 0 || name.length() > 30)
+		return false;
+
 	// Возраст
 	comma_pos = line.find(',', start);
 	if (comma_pos == string::npos)
@@ -124,6 +126,9 @@ bool ParseFileLine(const std::string& line, User& out_user)
 		return false;
 	age = stoi(age_string);
 
+	if (age < 0 || age > 100)
+		return false;
+
 	start = comma_pos + 1;
 
 	// Зарплата
@@ -133,6 +138,9 @@ bool ParseFileLine(const std::string& line, User& out_user)
 	if (!StringIsNumber(salary_string))
 		return false;
 	salary = stoi(salary_string);
+
+	if (salary < 0)
+		return false;
 
 	out_user.name = name;
 	out_user.age = age;

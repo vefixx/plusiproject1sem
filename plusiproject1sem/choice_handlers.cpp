@@ -56,7 +56,7 @@ void HandleDeleteUserById(std::vector<User>& users)
 	}
 }
 
-void HandleSaveToFile(std::vector<User>& users)
+void HandleSaveToFile(const std::vector<User>& users)
 {
 	using namespace std;
 
@@ -78,4 +78,102 @@ void HandleSaveToFile(std::vector<User>& users)
 	file.close();
 	cout << "Данные сохранены в файл: " << file_name << endl;
 
+}
+
+void HandleAddUser(std::vector<User>& users)
+{
+    using namespace std;
+
+    while (true) {
+        cout << "Введите '-' в имени, чтобы выйти." << endl;
+
+        string name;
+        while (true) {
+            cout << "Введите имя (30 символов макс.): ";
+            getline(cin, name);
+
+            if (name == "-") {
+                cout << "Выход из добавления пользователей." << endl;
+                return;
+            }
+
+            if (name.length() == 0) {
+                cout << "Имя не может быть пустым. Попробуйте снова." << endl;
+                continue;
+            }
+
+            if (name.length() > 30) {
+                cout << "Имя не должно содержать более 30 символов. Попробуйте снова." << endl;
+                continue;
+            }
+
+            break;
+        }
+
+        short age;
+        while (true) {
+            cout << "Введите возраст (введите 0 для выхода) (от 0 до 100): ";
+            cin >> age;
+            if (cin.fail()) {
+                cout << "Неверный ввод возраста. Попробуйте снова." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (age == 0) {
+                cout << "Выход из добавления пользователей." << endl;
+                return;
+            }
+
+            if (age < 0 || age > 100) {
+                cout << "Возраст должен быть от 0 до 100. Попробуйте снова." << endl;
+                continue;
+            }
+
+            break;
+        }
+
+        int salary;
+        while (true) {
+            cout << "Введите зарплату (введите -1 для выхода): ";
+            cin >> salary;
+            if (cin.fail()) {
+                cout << "Неверный ввод зарплаты. Попробуйте снова." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (salary == -1) {
+                cout << "Выход из добавления пользователей." << endl;
+                return;
+            }
+
+            if (salary < 0) {
+                cout << "Зарплата не может быть отрицательной. Попробуйте снова." << endl;
+                continue;
+            }
+
+            break;
+        }
+
+        User newUser;
+        newUser.name = name;
+        newUser.age = age;
+        newUser.salary = salary;
+        AddToTable(newUser, users);
+
+        cout << "Пользователь добавлен: " << newUser.name << ", возраст: " << newUser.age
+            << ", зарплата: " << newUser.salary << ", ID: " << newUser.id << endl;
+
+        cout << "Продолжить добавление? (да/нет): ";
+        string cont;
+        getline(cin, cont);
+        if (cont != "да" && cont != "Да") {
+            break;
+        }
+    }
 }
