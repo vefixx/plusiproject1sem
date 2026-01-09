@@ -2,18 +2,23 @@
 #include <windows.h>
 #include <limits>
 #include "io_utils.h"
+#include <vector>
+#include "structs.h"
 
 int main() {
 	using namespace std;
 
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+
+	vector<User> users;
 	
 	short choice;
 	while (true) {
-		cout << "ФАЙЛОВАЯ БАЗА" << endl;
+		cout << "ФАЙЛОВАЯ БАЗА (" << users.size() << " объектов)" << endl;
 		cout << "=============" << endl;
 		cout << "0) Выход из программы" << endl;
+		cout << "1) Загрузка из файла" << endl;
 		cout << "Введите номер действия: ";
 		cin >> choice;
 
@@ -34,7 +39,7 @@ int main() {
 			break;
 		}
 
-		if (!HandleChoice(choice)) {
+		if (!HandleChoice(choice, users)) {
 			cout << "Неверное действие" << endl << endl;
 			continue;
 		}
