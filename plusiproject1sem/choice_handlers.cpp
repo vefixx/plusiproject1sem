@@ -1,77 +1,81 @@
 #include "choice_handlers.h"
 
+#include "table_utils.h"
+#include <string>
+#include <iostream>
 #include <fstream>
-#include "string_utils.h"
 
-bool LoadFromFile(const std::string& file_name, std::vector<User>& users)
+void HandleLoadFromFile(std::vector<User>& users)
 {
 	using namespace std;
 
-	ifstream file(file_name);
-
-	if (!file.is_open())
-		return false;
-
-	users.clear();
-
-	string str;
-	User user;
-	while (getline(file, str)) {
-		if (ParseFileLine(str, user)) {
-			user.id = users.size();
-			users.push_back(user);
-		}
+	string file_name;
+	cout << "Введите название файла (например, file.txt): ";
+	getline(cin, file_name);
+	bool success = LoadFromFile(file_name, users);
+	if (!success) {
+		cout << "Файл не найден." << endl;
 	}
-
-	return true;
+	else {
+		cout << "Загружено " << users.size() << " пользователей из файла." << endl;
+	}
 }
 
-bool ParseFileLine(const std::string& line, User& out_user)
+void HandleDeleteUserById(std::vector<User>& users)
 {
 	using namespace std;
 
-	string name;
-	short age;
-	int salary;
+	int id;
+	while (true) {
+		cout << "Введите ID пользователя для удаления (-1 для выхода): ";
+		cin >> id;
 
-	// Парсим строки формата: <name>, <age>, <salary>
-	// Если строка не соответствует формату, то пропускаем ее
+		if (cin.fail()) {
+			cout << "Неверный ввод" << endl;
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+			continue;
+		}
+		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+		if (cin.gcount() > 1) {
+			cout << "Неверный ввод" << endl;
+			continue;
+		}
 
-	int start = 0;	// Откуда парсим поле.
-	size_t comma_pos = line.find(',', 0);
-	if (comma_pos == string::npos)
-		return false;
+		if (id == -1) {
+			break;
+		}
 
-	// Имя
-	// Берем строку, обрезанную от start до запятой
-	// Количество символов для обрезки = comma_pos - start, то есть длина поля
-	// Это и будет необходимое содержимое поля
-	name = line.substr(start, comma_pos - start);
-	Trim(name);
-	start = comma_pos + 1; // Устанавливаем новый старт обрезки
+		if (!DeleteUserById(users, id)) {
+			cout << "Пользователь с ID=" << id << " не найден." << endl;
+			continue;
+		}
 
-	// Возраст
-	comma_pos = line.find(',', start);
-	if (comma_pos == string::npos)
-		return false;
+		cout << "Пользователь с ID=" << id << " успешно удален." << endl;
+		break;
+	}
+}
 
-	string age_string = line.substr(start, comma_pos - start);
-	Trim(age_string);
-	if (!StringIsNumber(age_string))
-		return false;
-	age = stoi(age_string);
+void HandleSaveToFile(std::vector<User>& users)
+{
+	using namespace std;
 
-	start = comma_pos + 1;
+	string file_name;
+	cout << "Введите название файла (например, file.txt): ";
+	getline(cin, file_name);
 
-	// Зарплата
-	// Обрезаем от start до конца строки
-	string salary_string = line.substr(start);
-	Trim(salary_string);
-	if (!StringIsNumber(salary_string))
-		return false;
-	salary = stoi(salary_string);
+	ofstream file(file_name);
 
-	out_user.name = name;
-	out_user.age = age;
-	out_user.salary = salary;
+	if (!file.is_open()) {
+		cout << "Не удалось открыть файл для записи." << endl;
+		return;
+	}
+
+	for (const User& user : users) {
+		file << user.name << ", " << user.age << ", " << user.salary << "\n";
+	}
+
+	file.close();
+	cout << "Данные сохранены в файл: " << file_name << endl;
+
 }

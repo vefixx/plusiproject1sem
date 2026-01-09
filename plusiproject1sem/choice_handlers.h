@@ -3,5 +3,6 @@
 #include <vector>
 #include "structs.h"
 
-bool LoadFromFile(const std::string& file_name, std::vector<User>& users);
-bool ParseFileLine(const std::string& line, User& out_user);
+void HandleLoadFromFile(std::vector<User>& users);
+void HandleDeleteUserById(std::vector<User>& users);
+void HandleSaveToFile(std::vector<User>& users);

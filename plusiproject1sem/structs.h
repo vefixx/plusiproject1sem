@@ -6,5 +6,5 @@ struct User {
 	std::string name;
 	short age;
 	int salary;
-	long id;
+	int id;
 };

@@ -15,22 +15,25 @@ int main() {
 	
 	short choice;
 	while (true) {
-		cout << "ФАЙЛОВАЯ БАЗА (" << users.size() << " объектов)" << endl;
+		cout << endl << "ФАЙЛОВАЯ БАЗА (" << users.size() << " объектов)" << endl;
 		cout << "=============" << endl;
 		cout << "0) Выход из программы" << endl;
 		cout << "1) Загрузка из файла" << endl;
+		cout << "2) Вывести таблицу" << endl;
+		cout << "3) Удаление по ID" << endl;
+		cout << "4) Сохранение в файл" << endl;
 		cout << "Введите номер действия: ";
 		cin >> choice;
 
 		if (cin.fail()) {
-			cout << "Неверный ввод" << endl << endl;
+			cout << "Неверный ввод" << endl;
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 			continue;
 		}
 		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 		if (cin.gcount() > 1) {
-			cout << "Неверный ввод" << endl << endl;
+			cout << "Неверный ввод" << endl;
 			continue;
 		}
 
@@ -40,7 +43,7 @@ int main() {
 		}
 
 		if (!HandleChoice(choice, users)) {
-			cout << "Неверное действие" << endl << endl;
+			cout << "Неверное действие" << endl;
 			continue;
 		}
 	}

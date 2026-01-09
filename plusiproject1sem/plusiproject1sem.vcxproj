@@ -131,12 +131,14 @@
     <ClCompile Include="io_utils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="string_utils.cpp" />
+    <ClCompile Include="table_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="choice_handlers.h" />
     <ClInclude Include="io_utils.h" />
     <ClInclude Include="string_utils.h" />
     <ClInclude Include="structs.h" />
+    <ClInclude Include="table_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="file.txt" />
