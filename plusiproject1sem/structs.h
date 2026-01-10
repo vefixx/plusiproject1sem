@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef STRUCTS_H_
+#define STRUCTS_H_
 
 #include <string>
 
@@ -15,3 +16,5 @@ enum SortBy {
 	SortBy_Salary = 4,
 	SortBy_Id = 1,
 };
+
+#endif // !STRUCTS_H_

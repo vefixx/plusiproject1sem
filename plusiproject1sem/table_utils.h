@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef TABLE_UTILS_H_
+#define TABLE_UTILS_H_
+
 #include "structs.h"
 #include <vector>
 
@@ -13,3 +15,5 @@ void FindAndPrintUsersByAge(const std::vector<User>& users, short age);
 void FindAndPrintUsersBySalary(const std::vector<User>& users, int salary);
 void SortTableBy(std::vector<User>& users, SortBy sort_by);
 void PrintUser(const User& user);
+
+#endif // !TABLE_UTILS_H_

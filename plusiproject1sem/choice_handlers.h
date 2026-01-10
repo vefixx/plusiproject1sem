@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#ifndef CHOICE_HANDLERS_H_
+#define CHOICE_HANDLERS_H_
+
 #include <string>
 #include <vector>
 #include "structs.h"
@@ -13,3 +15,5 @@ void HandleFindByNameField(const std::vector<User>& users);
 void HandleFindByAgeField(const std::vector<User>& users);
 void HandleFindBySalaryField(const std::vector<User>& users);
 void HandleSortByField(std::vector<User>& users);
+
+#endif // !CHOICE_HANDLERS_H_
