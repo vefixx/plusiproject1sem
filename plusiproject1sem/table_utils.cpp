@@ -1,10 +1,12 @@
-п»ї#include "table_utils.h"
+#include "table_utils.h"
 
 #include <fstream>
 #include "string_utils.h"
 #include <iostream>
 #include <iomanip>
 #include "choice_handlers.h"
+
+const std::string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
 void AddToTable(User& user, std::vector<User>& users)
 {
@@ -30,9 +32,9 @@ void PrintTable(const std::vector<User>& users)
 
 	cout << left
 		<< setw(col_width_id) << "ID"
-		<< setw(col_width_name) << "РРјСЏ"
-		<< setw(col_width_age) << "Р’РѕР·СЂР°СЃС‚"
-		<< setw(col_width_salary) << "Р—Р°СЂРїР»Р°С‚Р°"
+		<< setw(col_width_name) << "Имя"
+		<< setw(col_width_age) << "Возраст"
+		<< setw(col_width_salary) << "Зарплата"
 		<< endl;
 
 	cout << string(col_width_id, '-')
@@ -67,8 +69,8 @@ void PrintUser(const User& user)
 {
 	using namespace std;
 
-	cout << user.name << ", РІРѕР·СЂР°СЃС‚: " << user.age
-		<< ", Р·Р°СЂРїР»Р°С‚Р°: " << user.salary << ", ID: " << user.id << endl;
+	cout << user.name << ", возраст: " << user.age
+		<< ", зарплата: " << user.salary << ", ID: " << user.id << endl;
 }
 
 void FindAndPrintUsersById(const std::vector<User>& users, int id)
@@ -77,13 +79,13 @@ void FindAndPrintUsersById(const std::vector<User>& users, int id)
 
 	for (const User& user : users) {
 		if (user.id == id) {
-			cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ! ";
+			cout << "Пользователь найден! ";
 			PrintUser(user);
 			return;
 		}
 	}
 
-	cout << "РџРѕ РїРѕР»СЋ ID=" << id << " Р±С‹Р»Рѕ РЅР°Р№РґРµРЅРѕ 0 РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№" << endl;
+	cout << "По полю ID=" << id << " было найдено 0 пользователей" << endl;
 }
 
 void FindAndPrintUsersByName(const std::vector<User>& users, std::string name)
@@ -94,13 +96,13 @@ void FindAndPrintUsersByName(const std::vector<User>& users, std::string name)
 	for (const User& user : users) {
 		if (user.name == name) {
 			any_find = true;
-			cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ! ";
+			cout << "Пользователь найден! ";
 			PrintUser(user);
 		}
 	}
 
 	if (!any_find) {
-		cout << "РџРѕ РїРѕР»СЋ РРјСЏ=\"" << name << "\" Р±С‹Р»Рѕ РЅР°Р№РґРµРЅРѕ 0 РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№" << endl;
+		cout << "По полю Имя=\"" << name << "\" было найдено 0 пользователей" << endl;
 	}
 }
 
@@ -112,13 +114,13 @@ void FindAndPrintUsersByAge(const std::vector<User>& users, short age)
 	for (const User& user : users) {
 		if (user.age == age) {
 			any_find = true;
-			cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ! ";
+			cout << "Пользователь найден! ";
 			PrintUser(user);
 		}
 	}
 
 	if (!any_find) {
-		cout << "РџРѕ РїРѕР»СЋ Р’РѕР·СЂР°СЃС‚=\"" << age << "\" Р±С‹Р»Рѕ РЅР°Р№РґРµРЅРѕ 0 РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№" << endl;
+		cout << "По полю Возраст=\"" << age << "\" было найдено 0 пользователей" << endl;
 	}
 }
 
@@ -130,13 +132,57 @@ void FindAndPrintUsersBySalary(const std::vector<User>& users, int salary)
 	for (const User& user : users) {
 		if (user.salary == salary) {
 			any_find = true;
-			cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ! ";
+			cout << "Пользователь найден! ";
 			PrintUser(user);
 		}
 	}
 
 	if (!any_find) {
-		cout << "РџРѕ РїРѕР»СЋ Р—Р°СЂРїР»Р°С‚Р°=\"" << salary << "\" Р±С‹Р»Рѕ РЅР°Р№РґРµРЅРѕ 0 РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№" << endl;
+		cout << "По полю Зарплата=\"" << salary << "\" было найдено 0 пользователей" << endl;
+	}
+}
+
+void SortTableBy(std::vector<User>& users, SortBy sort_by)
+{
+	int n = users.size();
+	if (n <= 1) {
+		return;
+	}
+
+	// Пузырьковая сортировка по возрастанию, накопление в конце
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - i - 1; j++) {
+			bool need_swap = false;
+
+			switch (sort_by) {
+			case SortBy_Name:
+				if (users[j].name > users[j + 1].name) {
+					need_swap = true;
+				}
+				break;
+			case SortBy_Age:
+				if (users[j].age > users[j + 1].age) {
+					need_swap = true;
+				}
+				break;
+			case SortBy_Salary:
+				if (users[j].salary > users[j + 1].salary) {
+					need_swap = true;
+				}
+				break;
+			case SortBy_Id:
+				if (users[j].id > users[j + 1].id) {
+					need_swap = true;
+				}
+				break;
+			}
+
+			if (need_swap) {
+				User temp = users[j];
+				users[j] = users[j + 1];
+				users[j + 1] = temp;
+			}
+		}
 	}
 }
 
@@ -173,26 +219,26 @@ bool ParseFileLine(const std::string& line, User& out_user)
 	short age;
 	int salary;
 
-	// РџР°СЂСЃРёРј СЃС‚СЂРѕРєРё С„РѕСЂРјР°С‚Р°: <name>, <age>, <salary>
-	// Р•СЃР»Рё СЃС‚СЂРѕРєР° РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ С„РѕСЂРјР°С‚Сѓ, С‚Рѕ РїСЂРѕРїСѓСЃРєР°РµРј РµРµ
+	// Парсим строки формата: <name>, <age>, <salary>
+	// Если строка не соответствует формату, то пропускаем ее
 
-	int start = 0;	// РћС‚РєСѓРґР° РїР°СЂСЃРёРј РїРѕР»Рµ
+	int start = 0;	// Откуда парсим поле
 	size_t comma_pos = line.find(',', 0);
 	if (comma_pos == string::npos)
 		return false;
 
-	// РРјСЏ
-	// Р‘РµСЂРµРј СЃС‚СЂРѕРєСѓ, РѕР±СЂРµР·Р°РЅРЅСѓСЋ РѕС‚ start РґРѕ Р·Р°РїСЏС‚РѕР№
-	// РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РґР»СЏ РѕР±СЂРµР·РєРё = comma_pos - start, С‚Рѕ РµСЃС‚СЊ РґР»РёРЅР° РїРѕР»СЏ
-	// Р­С‚Рѕ Рё Р±СѓРґРµС‚ РЅРµРѕР±С…РѕРґРёРјРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РїРѕР»СЏ
+	// Имя
+	// Берем строку, обрезанную от start до запятой
+	// Количество символов для обрезки = comma_pos - start, то есть длина поля
+	// Это и будет необходимое содержимое поля
 	name = line.substr(start, comma_pos - start);
 	Trim(name);
-	start = comma_pos + 1; // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРІС‹Р№ СЃС‚Р°СЂС‚ РѕР±СЂРµР·РєРё
+	start = comma_pos + 1; // Устанавливаем новый старт обрезки
 
 	if (name.length() == 0 || name.length() > 30)
 		return false;
 
-	// Р’РѕР·СЂР°СЃС‚
+	// Возраст
 	comma_pos = line.find(',', start);
 	if (comma_pos == string::npos)
 		return false;
@@ -203,13 +249,13 @@ bool ParseFileLine(const std::string& line, User& out_user)
 		return false;
 	age = stoi(age_string);
 
-	if (age < 0 || age > 100)
+	if (age < 1 || age > 100)
 		return false;
 
 	start = comma_pos + 1;
 
-	// Р—Р°СЂРїР»Р°С‚Р°
-	// РћР±СЂРµР·Р°РµРј РѕС‚ start РґРѕ РєРѕРЅС†Р° СЃС‚СЂРѕРєРё
+	// Зарплата
+	// Обрезаем от start до конца строки
 	string salary_string = line.substr(start);
 	Trim(salary_string);
 	if (!StringIsNumber(salary_string))

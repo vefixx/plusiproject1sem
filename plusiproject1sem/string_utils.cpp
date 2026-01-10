@@ -1,4 +1,5 @@
-﻿#include "string_utils.h"
+#include "string_utils.h"
+#include <cctype>
 
 void LTrim(std::string& str, const char* t)
 {
@@ -18,15 +19,23 @@ void Trim(std::string& str, const char* t)
 
 bool StringIsNumber(const std::string& str)
 {
-	bool all_is_digit = true;
-	for (const char& ch : str) {
-		if (!isdigit(ch)) {
-			all_is_digit = false;
-			break;
+	if (str.empty())
+		return false;
+
+	size_t start = 0;
+	if (str[0] == '-') {
+		start = 1;
+		if (str.length() == 1)
+			return false;
+	}
+
+	for (size_t i = start; i < str.length(); ++i) {
+		if (!isdigit(static_cast<unsigned char>(str[i]))) {
+			return false;
 		}
 	}
 
-	return all_is_digit;
+	return true;
 }
 
 

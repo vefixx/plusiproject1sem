@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include <vector>
 #include "structs.h"
@@ -12,3 +12,4 @@ void HandleFindByIDField(const std::vector<User>& users);
 void HandleFindByNameField(const std::vector<User>& users);
 void HandleFindByAgeField(const std::vector<User>& users);
 void HandleFindBySalaryField(const std::vector<User>& users);
+void HandleSortByField(std::vector<User>& users);

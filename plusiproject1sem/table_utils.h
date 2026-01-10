@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "structs.h"
 #include <vector>
 
@@ -11,4 +11,5 @@ void FindAndPrintUsersById(const std::vector<User>& users, int id);
 void FindAndPrintUsersByName(const std::vector<User>& users, std::string name);
 void FindAndPrintUsersByAge(const std::vector<User>& users, short age);
 void FindAndPrintUsersBySalary(const std::vector<User>& users, int salary);
+void SortTableBy(std::vector<User>& users, SortBy sort_by);
 void PrintUser(const User& user);

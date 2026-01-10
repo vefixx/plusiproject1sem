@@ -1,4 +1,4 @@
-﻿#include "io_utils.h"
+#include "io_utils.h"
 #include "choice_handlers.h"
 #include "table_utils.h"
 #include <string>
@@ -31,6 +31,10 @@ bool HandleChoice(short choice, std::vector<User>& users)
 	}
 	case 6: {
 		HandleFindByField(users);
+		break;
+	}
+	case 7: {
+		HandleSortByField(users);
 		break;
 	}
 	default:
