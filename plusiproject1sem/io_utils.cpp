@@ -14,19 +14,19 @@ bool HandleChoice(short choice, std::vector<User>& users)
 		break;
 	}
 	case 2: {
-		PrintTable(users);
-		break;
-	}
-	case 3: {
-		HandleDeleteUserById(users);
-		break;
-	}
-	case 4: {
 		HandleSaveToFile(users);
 		break;
 	}
-	case 5: {
+	case 3: {
+		PrintTable(users);
+		break;
+	}
+	case 4: {
 		HandleAddUser(users);
+		break;
+	}
+	case 5: {
+		HandleDeleteUserById(users);
 		break;
 	}
 	case 6: {

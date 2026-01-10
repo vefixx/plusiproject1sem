@@ -176,7 +176,7 @@ bool ParseFileLine(const std::string& line, User& out_user)
 	// Парсим строки формата: <name>, <age>, <salary>
 	// Если строка не соответствует формату, то пропускаем ее
 
-	int start = 0;	// Откуда парсим поле.
+	int start = 0;	// Откуда парсим поле
 	size_t comma_pos = line.find(',', 0);
 	if (comma_pos == string::npos)
 		return false;
