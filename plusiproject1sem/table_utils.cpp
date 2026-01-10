@@ -51,7 +51,7 @@ void PrintTable(const std::vector<User>& users)
 	}
 }
 
-bool DeleteUserById(std::vector<User>& users, long id)
+bool DeleteUserById(std::vector<User>& users, int id)
 {
 	for (int i = 0; i < users.size(); i++) {
 		if (users[i].id == id) {
@@ -61,6 +61,83 @@ bool DeleteUserById(std::vector<User>& users, long id)
 	}
 
 	return false;
+}
+
+void PrintUser(const User& user)
+{
+	using namespace std;
+
+	cout << user.name << ", возраст: " << user.age
+		<< ", зарплата: " << user.salary << ", ID: " << user.id << endl;
+}
+
+void FindAndPrintUsersById(const std::vector<User>& users, int id)
+{
+	using namespace std;
+
+	for (const User& user : users) {
+		if (user.id == id) {
+			cout << "Пользователь найден! ";
+			PrintUser(user);
+			return;
+		}
+	}
+
+	cout << "По полю ID=" << id << " было найдено 0 пользователей" << endl;
+}
+
+void FindAndPrintUsersByName(const std::vector<User>& users, std::string name)
+{
+	using namespace std;
+
+	bool any_find = false;
+	for (const User& user : users) {
+		if (user.name == name) {
+			any_find = true;
+			cout << "Пользователь найден! ";
+			PrintUser(user);
+		}
+	}
+
+	if (!any_find) {
+		cout << "По полю Имя=\"" << name << "\" было найдено 0 пользователей" << endl;
+	}
+}
+
+void FindAndPrintUsersByAge(const std::vector<User>& users, short age)
+{
+	using namespace std;
+
+	bool any_find = false;
+	for (const User& user : users) {
+		if (user.age == age) {
+			any_find = true;
+			cout << "Пользователь найден! ";
+			PrintUser(user);
+		}
+	}
+
+	if (!any_find) {
+		cout << "По полю Возраст=\"" << age << "\" было найдено 0 пользователей" << endl;
+	}
+}
+
+void FindAndPrintUsersBySalary(const std::vector<User>& users, int salary)
+{
+	using namespace std;
+
+	bool any_find = false;
+	for (const User& user : users) {
+		if (user.salary == salary) {
+			any_find = true;
+			cout << "Пользователь найден! ";
+			PrintUser(user);
+		}
+	}
+
+	if (!any_find) {
+		cout << "По полю Зарплата=\"" << salary << "\" было найдено 0 пользователей" << endl;
+	}
 }
 
 bool LoadFromFile(const std::string& file_name, std::vector<User>& users)

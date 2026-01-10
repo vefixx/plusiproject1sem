@@ -29,6 +29,10 @@ bool HandleChoice(short choice, std::vector<User>& users)
 		HandleAddUser(users);
 		break;
 	}
+	case 6: {
+		HandleFindByField(users);
+		break;
+	}
 	default:
 		return false;
 	}
