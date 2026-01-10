@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <windows.h>
 #include <limits>
 #include "io_utils.h"
@@ -15,36 +15,36 @@ int main() {
 	
 	short choice;
 	while (true) {
-		cout << endl << "ÔÀÉËÎÂÀß ÁÀÇÀ (" << users.size() << " îáúåêòîâ)" << endl;
+		cout << endl << "Ð¤ÐÐ™Ð›ÐžÐ’ÐÐ¯ Ð‘ÐÐ—Ð (" << users.size() << " Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²)" << endl;
 		cout << "=============" << endl;
-		cout << "0) Âûõîä èç ïðîãðàììû" << endl;
-		cout << "1) Çàãðóçêà èç ôàéëà" << endl;
-		cout << "2) Ñîõðàíåíèå â ôàéë" << endl;
-		cout << "3) Âûâåñòè òàáëèöó" << endl;
-		cout << "4) Äîáàâèòü ïîëüçîâàòåëÿ" << endl;
-		cout << "5) Óäàëèòü ïîëüçîâàòåëÿ ïî ID" << endl;
-		cout << "6) Ïîèñê ïîëüçîâàòåëÿ ïî ïîëþ" << endl;
+		cout << "0) Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹" << endl;
+		cout << "1) Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð°" << endl;
+		cout << "2) Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² Ñ„Ð°Ð¹Ð»" << endl;
+		cout << "3) Ð’Ñ‹Ð²ÐµÑÑ‚Ð¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ" << endl;
+		cout << "4) Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ" << endl;
+		cout << "5) Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð¿Ð¾ ID" << endl;
+		cout << "6) ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð¿Ð¾ Ð¿Ð¾Ð»ÑŽ" << endl;
 		cin >> choice;
 
 		if (cin.fail()) {
-			cout << "Íåâåðíûé ââîä" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 			continue;
 		}
 		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 		if (cin.gcount() > 1) {
-			cout << "Íåâåðíûé ââîä" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
 			continue;
 		}
 
 		if (choice == 0) {
-			cout << "Âû âûøëè èç ïðîãðàììû" << endl;
+			cout << "Ð’Ñ‹ Ð²Ñ‹ÑˆÐ»Ð¸ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹" << endl;
 			break;
 		}
 
 		if (!HandleChoice(choice, users)) {
-			cout << "Íåâåðíîå äåéñòâèå" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ð¾Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ" << endl;
 			continue;
 		}
 	}

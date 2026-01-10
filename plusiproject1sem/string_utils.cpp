@@ -1,4 +1,4 @@
-#include "string_utils.h"
+﻿#include "string_utils.h"
 
 void LTrim(std::string& str, const char* t)
 {

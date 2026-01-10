@@ -1,4 +1,4 @@
-#include "choice_handlers.h"
+ï»¿#include "choice_handlers.h"
 
 #include "table_utils.h"
 #include <string>
@@ -10,14 +10,14 @@ void HandleLoadFromFile(std::vector<User>& users)
 	using namespace std;
 
 	string file_name;
-	cout << "Ââåäèòå íàçâàíèå ôàéëà (íàïðèìåð, file.txt): ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° (Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, file.txt): ";
 	getline(cin, file_name);
 	bool success = LoadFromFile(file_name, users);
 	if (!success) {
-		cout << "Ôàéë íå íàéäåí." << endl;
+		cout << "Ð¤Ð°Ð¹Ð» Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½." << endl;
 	}
 	else {
-		cout << "Çàãðóæåíî " << users.size() << " ïîëüçîâàòåëåé èç ôàéëà." << endl;
+		cout << "Ð—Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½Ð¾ " << users.size() << " Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð°." << endl;
 	}
 }
 
@@ -27,18 +27,18 @@ void HandleDeleteUserById(std::vector<User>& users)
 
 	int id;
 	while (true) {
-		cout << "Ââåäèòå ID ïîëüçîâàòåëÿ äëÿ óäàëåíèÿ (-1 äëÿ âûõîäà): ";
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ID Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ (-1 Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°): ";
 		cin >> id;
 
 		if (cin.fail()) {
-			cout << "Íåâåðíûé ââîä" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 			continue;
 		}
 		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
 		if (cin.gcount() > 1) {
-			cout << "Íåâåðíûé ââîä" << endl;
+			cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
 			continue;
 		}
 
@@ -47,11 +47,11 @@ void HandleDeleteUserById(std::vector<User>& users)
 		}
 
 		if (!DeleteUserById(users, id)) {
-			cout << "Ïîëüçîâàòåëü ñ ID=" << id << " íå íàéäåí." << endl;
+			cout << "ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ñ ID=" << id << " Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½." << endl;
 			continue;
 		}
 
-		cout << "Ïîëüçîâàòåëü ñ ID=" << id << " óñïåøíî óäàëåí." << endl;
+		cout << "ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ñ ID=" << id << " ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ ÑƒÐ´Ð°Ð»ÐµÐ½." << endl;
 		break;
 	}
 }
@@ -61,13 +61,13 @@ void HandleSaveToFile(const std::vector<User>& users)
 	using namespace std;
 
 	string file_name;
-	cout << "Ââåäèòå íàçâàíèå ôàéëà (íàïðèìåð, file.txt): ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° (Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, file.txt): ";
 	getline(cin, file_name);
 
 	ofstream file(file_name);
 
 	if (!file.is_open()) {
-		cout << "Íå óäàëîñü îòêðûòü ôàéë äëÿ çàïèñè." << endl;
+		cout << "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð·Ð°Ð¿Ð¸ÑÐ¸." << endl;
 		return;
 	}
 
@@ -76,7 +76,7 @@ void HandleSaveToFile(const std::vector<User>& users)
 	}
 
 	file.close();
-	cout << "Äàííûå ñîõðàíåíû â ôàéë: " << file_name << endl;
+	cout << "Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹ Ð² Ñ„Ð°Ð¹Ð»: " << file_name << endl;
 
 }
 
@@ -85,25 +85,25 @@ void HandleAddUser(std::vector<User>& users)
     using namespace std;
 
     while (true) {
-        cout << "Ââåäèòå '-' â èìåíè, ÷òîáû âûéòè." << endl;
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ '-' Ð² Ð¸Ð¼ÐµÐ½Ð¸, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²Ñ‹Ð¹Ñ‚Ð¸." << endl;
 
         string name;
         while (true) {
-            cout << "Ââåäèòå èìÿ (30 ñèìâîëîâ ìàêñ.): ";
+            cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ (30 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð² Ð¼Ð°ÐºÑ.): ";
             getline(cin, name);
 
             if (name == "-") {
-                cout << "Âûõîä èç äîáàâëåíèÿ ïîëüçîâàòåëåé." << endl;
+                cout << "Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹." << endl;
                 return;
             }
 
             if (name.length() == 0) {
-                cout << "Èìÿ íå ìîæåò áûòü ïóñòûì. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "Ð˜Ð¼Ñ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿ÑƒÑÑ‚Ñ‹Ð¼. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 continue;
             }
 
             if (name.length() > 30) {
-                cout << "Èìÿ íå äîëæíî ñîäåðæàòü áîëåå 30 ñèìâîëîâ. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "Ð˜Ð¼Ñ Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð°Ñ‚ÑŒ Ð±Ð¾Ð»ÐµÐµ 30 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð². ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 continue;
             }
 
@@ -112,10 +112,10 @@ void HandleAddUser(std::vector<User>& users)
 
         short age;
         while (true) {
-            cout << "Ââåäèòå âîçðàñò (ââåäèòå 0 äëÿ âûõîäà) (îò 0 äî 100): ";
+            cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚ (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°) (Ð¾Ñ‚ 0 Ð´Ð¾ 100): ";
             cin >> age;
             if (cin.fail()) {
-                cout << "Íåâåðíûé ââîä âîçðàñòà. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
@@ -123,12 +123,12 @@ void HandleAddUser(std::vector<User>& users)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (age == 0) {
-                cout << "Âûõîä èç äîáàâëåíèÿ ïîëüçîâàòåëåé." << endl;
+                cout << "Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹." << endl;
                 return;
             }
 
             if (age < 0 || age > 100) {
-                cout << "Âîçðàñò äîëæåí áûòü îò 0 äî 100. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "Ð’Ð¾Ð·Ñ€Ð°ÑÑ‚ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚ 0 Ð´Ð¾ 100. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 continue;
             }
 
@@ -137,10 +137,10 @@ void HandleAddUser(std::vector<User>& users)
 
         int salary;
         while (true) {
-            cout << "Ââåäèòå çàðïëàòó (ââåäèòå -1 äëÿ âûõîäà): ";
+            cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ñƒ (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ -1 Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°): ";
             cin >> salary;
             if (cin.fail()) {
-                cout << "Íåâåðíûé ââîä çàðïëàòû. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ñ‹. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
@@ -148,12 +148,12 @@ void HandleAddUser(std::vector<User>& users)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (salary == -1) {
-                cout << "Âûõîä èç äîáàâëåíèÿ ïîëüçîâàòåëåé." << endl;
+                cout << "Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹." << endl;
                 return;
             }
 
             if (salary < 0) {
-                cout << "Çàðïëàòà íå ìîæåò áûòü îòðèöàòåëüíîé. Ïîïðîáóéòå ñíîâà." << endl;
+                cout << "Ð—Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð¹. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
                 continue;
             }
 
@@ -166,13 +166,13 @@ void HandleAddUser(std::vector<User>& users)
         newUser.salary = salary;
         AddToTable(newUser, users);
 
-        cout << "Ïîëüçîâàòåëü äîáàâëåí: ";
+        cout << "ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½: ";
         PrintUser(newUser);
 
-        cout << "Ïðîäîëæèòü äîáàâëåíèå? (äà/íåò): ";
+        cout << "ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ? (Ð´Ð°/Ð½ÐµÑ‚): ";
         string cont;
         getline(cin, cont);
-        if (cont != "äà" && cont != "Äà") {
+        if (cont != "Ð´Ð°" && cont != "Ð”Ð°") {
             break;
         }
     }
@@ -184,25 +184,25 @@ void HandleFindByField(const std::vector<User>& users)
 
     short choice;
     while (true) {
-        cout << endl << "ÏÎÈÑÊ ÏÎ ÏÎËÞ" << endl;
+        cout << endl << "ÐŸÐžÐ˜Ð¡Ðš ÐŸÐž ÐŸÐžÐ›Ð®" << endl;
         cout << "=============" << endl;
-        cout << "0) Âåðíóòüñÿ" << endl;
-        cout << "1) Ïîèñê ïî ID" << endl;
-        cout << "2) Ïîèñê ïî èìåíè" << endl;
-        cout << "3) Ïîèñê ïî âîçðàñòó" << endl;
-        cout << "4) Ïîèñê ïî çàðïëàòå" << endl;
-        cout << "Ââåäèòå íîìåð äåéñòâèÿ: ";
+        cout << "0) Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ" << endl;
+        cout << "1) ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ ID" << endl;
+        cout << "2) ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ Ð¸Ð¼ÐµÐ½Ð¸" << endl;
+        cout << "3) ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ñƒ" << endl;
+        cout << "4) ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ðµ" << endl;
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ: ";
         cin >> choice;
 
         if (cin.fail()) {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
             cin.clear();
             cin.ignore((numeric_limits<streamsize>::max)(), '\n');
             continue;
         }
         cin.ignore((numeric_limits<streamsize>::max)(), '\n');
         if (cin.gcount() > 1) {
-            cout << "Íåâåðíûé ââîä" << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´" << endl;
             continue;
         }
 
@@ -233,10 +233,10 @@ void HandleFindByIDField(const std::vector<User>& users)
 
     int id;
     while (true) {
-        cout << "Ââåäèòå ID äëÿ ïîèñêà (ââåäèòå -1 äëÿ îòìåíû): ";
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ID Ð´Ð»Ñ Ð¿Ð¾Ð¸ÑÐºÐ° (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ -1 Ð´Ð»Ñ Ð¾Ñ‚Ð¼ÐµÐ½Ñ‹): ";
         cin >> id;
         if (cin.fail()) {
-            cout << "Íåâåðíûé ââîä ID. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´ ID. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -248,7 +248,7 @@ void HandleFindByIDField(const std::vector<User>& users)
         }
 
         if (id < 0) {
-            cout << "Íåêîððåêòíûé ID. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ ID. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             continue;
         }
 
@@ -263,9 +263,9 @@ void HandleFindByNameField(const std::vector<User>& users)
     using namespace std;
 
     string name;
-    cout << "Ââåäèòå '-' â èìåíè, ÷òîáû âûéòè." << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ '-' Ð² Ð¸Ð¼ÐµÐ½Ð¸, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²Ñ‹Ð¹Ñ‚Ð¸." << endl;
     while (true) {
-        cout << "Ââåäèòå èìÿ (30 ñèìâîëîâ ìàêñ.): ";
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ (30 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð² Ð¼Ð°ÐºÑ.): ";
         getline(cin, name);
 
         if (name == "-") {
@@ -273,12 +273,12 @@ void HandleFindByNameField(const std::vector<User>& users)
         }
 
         if (name.length() == 0) {
-            cout << "Èìÿ íå ìîæåò áûòü ïóñòûì. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "Ð˜Ð¼Ñ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿ÑƒÑÑ‚Ñ‹Ð¼. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             continue;
         }
 
         if (name.length() > 30) {
-            cout << "Èìÿ íå äîëæíî ñîäåðæàòü áîëåå 30 ñèìâîëîâ. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "Ð˜Ð¼Ñ Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð°Ñ‚ÑŒ Ð±Ð¾Ð»ÐµÐµ 30 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð². ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             continue;
         }
 
@@ -294,10 +294,10 @@ void HandleFindByAgeField(const std::vector<User>& users)
 
     short age;
     while (true) {
-        cout << "Ââåäèòå âîçðàñò (ââåäèòå 0 äëÿ âûõîäà) (îò 0 äî 100): ";
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚ (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°) (Ð¾Ñ‚ 0 Ð´Ð¾ 100): ";
         cin >> age;
         if (cin.fail()) {
-            cout << "Íåâåðíûé ââîä âîçðàñòà. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -309,7 +309,7 @@ void HandleFindByAgeField(const std::vector<User>& users)
         }
 
         if (age < 0 || age > 100) {
-            cout << "Âîçðàñò äîëæåí áûòü îò 0 äî 100. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "Ð’Ð¾Ð·Ñ€Ð°ÑÑ‚ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚ 0 Ð´Ð¾ 100. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             continue;
         }
 
@@ -325,10 +325,10 @@ void HandleFindBySalaryField(const std::vector<User>& users)
 
     unsigned int salary;
     while (true) {
-        cout << "Ââåäèòå çàðïëàòó (ââåäèòå -1 äëÿ âûõîäà): ";
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ñƒ (Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ -1 Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°): ";
         cin >> salary;
         if (cin.fail()) {
-            cout << "Íåâåðíûé ââîä çàðïëàòû. Ïîïðîáóéòå ñíîâà." << endl;
+            cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ñ‹. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
